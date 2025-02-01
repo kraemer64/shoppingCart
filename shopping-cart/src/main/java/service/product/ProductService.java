@@ -2,29 +2,57 @@ package service.product;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.springprojects.shoppingcart.exceptions.ProductNotFoundException;
+import com.springprojects.shoppingcart.model.Category;
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.repository.ProductRepository;
+import com.springprojects.shoppingcart.request.AddProductRequest;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class ProductService implements IProductService{
 	
-	private ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
 	@Override
-	public Product addProduct(final Product product) {
-		// TODO Auto-generated method stub
+	public Product addProduct(final AddProductRequest product) {
 		return null;
+	}
+	
+	/**
+	 * Function to map request to product.
+	 * @param request contains the given request.
+	 * @return the mapped new product.
+	 */
+	private Product createProduct(final AddProductRequest request, 
+			final Category category) {
+		return new Product(
+			request.getName(),
+			request.getBrand(),
+			request.getPrice(),
+			request.getInventory(),
+			request.getDescription(),
+			request.getName(),
+			category
+		);
 	}
 
 	@Override
 	public Product getProductById(final Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findById(id).orElseThrow(
+				() -> new ProductNotFoundException("Product not found!"));
 	}
 
 	@Override
+	@SuppressWarnings("PMD.LawOfDemeter")
 	public void deleteProductById(final Long id) {
-		// TODO Auto-generated method stub
-		
+		productRepository.findById(id)
+			.ifPresentOrElse(productRepository::delete, 
+					() -> { throw new ProductNotFoundException("Product not found!");});
 	}
 
 	@Override
@@ -35,47 +63,40 @@ public class ProductService implements IProductService{
 
 	@Override
 	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findAll();
 	}
 
 	@Override
 	public List<Product> getProductsByCategory(final String category) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByCategoryName(category);
 	}
 
 	@Override
 	public List<Product> getProductsByBrand(final String brand) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByBrand(brand);
 	}
 
 	@Override
 	public List<Product> getProductsByCategoryAndBrand(final String category, 
 			final String brand) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByCategoryNameAndBrand(category, brand);
 	}
 
 	@Override
 	public List<Product> getProductsByName(final String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByName(name);
 	}
 
 	@Override
 	public List<Product> getProductsByBrandAndName(final String brand, 
 			final String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByBrandAndName(brand, name);
 	}
 
 	@Override
 	public Long countProductsByBrandAndName(final String brand, 
 			final String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.countByBrandAndName(brand, name);
 	}
 
 }
