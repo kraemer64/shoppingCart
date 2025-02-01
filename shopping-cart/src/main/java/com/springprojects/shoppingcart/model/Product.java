@@ -19,7 +19,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product {
 
@@ -32,6 +31,27 @@ public class Product {
 	private int inventory;
 	private String description;
 	
+	
+	/**
+	 * Default constructor.
+	 * @param name contains name.
+	 * @param brand contains brand.
+	 * @param price contains price.
+	 * @param inventory contains inventory.
+	 * @param description contains description.
+	 * @param category contains category.
+	 */
+	public Product(String name, String brand, BigDecimal price, int inventory, 
+			String description, Category category) {
+		super();
+		this.name = name;
+		this.brand = brand;
+		this.price = price;
+		this.inventory = inventory;
+		this.description = description;
+		this.category = category;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
 	private Category category;
