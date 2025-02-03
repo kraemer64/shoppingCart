@@ -1,26 +1,39 @@
 package service.product;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.springprojects.shoppingcart.exceptions.ProductNotFoundException;
 import com.springprojects.shoppingcart.model.Category;
 import com.springprojects.shoppingcart.model.Product;
+import com.springprojects.shoppingcart.repository.CategoryRepository;
 import com.springprojects.shoppingcart.repository.ProductRepository;
 import com.springprojects.shoppingcart.request.AddProductRequest;
+import com.springprojects.shoppingcart.request.UpdateProductRequest;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor                                                                                
 public class ProductService implements IProductService{
 	
-	private final ProductRepository productRepository;
+	private final ProductRepository productRepository;                                                                                                    
+	private final CategoryRepository categoryRepository;
 
+	
 	@Override
-	public Product addProduct(final AddProductRequest product) {
-		return null;
+	public Product addProduct(final AddProductRequest request) {
+		Category category = Optional.ofNullable(categoryRepository
+				.findByName(request.getCategory().getName()))
+				.orElseGet(() -> {
+					Category newcategory = new Category(request.getCategory().getName());
+					return categoryRepository.save(newcategory);
+				});
+		
+		request.setCategory(category);
+		return productRepository.save(createProduct(request, category));
 	}
 	
 	/**
@@ -36,7 +49,6 @@ public class ProductService implements IProductService{
 			request.getPrice(),
 			request.getInventory(),
 			request.getDescription(),
-			request.getName(),
 			category
 		);
 	}
@@ -48,7 +60,6 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	@SuppressWarnings("PMD.LawOfDemeter")
 	public void deleteProductById(final Long id) {
 		productRepository.findById(id)
 			.ifPresentOrElse(productRepository::delete, 
@@ -56,9 +67,31 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public void updateProduct(final Product product, final Long productId) {
-		// TODO Auto-generated method stub
+	public Product updateProduct(final UpdateProductRequest request, final Long productId) {
+		return productRepository.findById(productId)
+				.map(existingProduct -> updateExistingProduct(existingProduct, request))
+				.map(productRepository::save)
+				.orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+	}
+	
+	/**
+	 * Function to update existing product from request.
+	 * @param existingProduct contains the already existing product.
+	 * @param request contains the new product data.
+	 * @return the updated product.
+	 */
+	private Product updateExistingProduct(Product existingProduct, 
+			UpdateProductRequest request) {
+		existingProduct.setName(request.getName());
+		existingProduct.setBrand(request.getBrand());
+		existingProduct.setPrice(request.getPrice());
+		existingProduct.setInventory(request.getInventory());
+		existingProduct.setDescription(request.getDescription());
 		
+		Category category = categoryRepository.findByName(
+				request.getCategory().getName());
+		existingProduct.setCategory(category);
+		return existingProduct;
 	}
 
 	@Override
