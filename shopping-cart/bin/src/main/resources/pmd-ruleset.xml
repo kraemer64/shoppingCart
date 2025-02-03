@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Rules"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        Shopping cart custom pmd ruleset
+    </description>
+
+    <rule
+        ref="category/java/bestpractices.xml/AvoidReassigningLoopVariables">
+        <properties>
+            <property name="foreachReassign" value="deny" />
+            <property name="forReassign" value="deny" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/GuardLogStatement">
+        <properties>
+            <property name="logLevels" value="trace,debug,info,warn,error,log,info,warning,severe" />
+            <property name="guardsMethods" value="isTraceEnabled,isDebugEnabled,isInfoEnabled,
+                isWarnEnabled,isErrorEnabled" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="testClassPattern" value="^Test.*$|^[A-Z][a-zA-Z0-9]*Test(s|Case)?$" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="6" />
+        </properties>
+    </rule>
+
+    <rule
+        ref="category/java/bestpractices.xml">
+        <exclude name="AbstractClassWithoutAbstractMethod" />
+        <exclude name="AccessorClassGeneration" />
+        <exclude name="AccessorMethodGeneration" />
+        <exclude name="ArrayIsStoredDirectly" />
+        <exclude name="AvoidMessageDigestField" />
+        <exclude name="AvoidPrintStackTrace" />
+        <exclude name="AvoidReassigningParameters" />
+        <exclude name="AvoidStringBufferField" />
+        <exclude name="CheckResultSet" />
+        <exclude name="ConstantsInInterface" />
+        <exclude name="DefaultLabelNotLastInSwitch" />
+        <exclude name="ExhaustiveSwitchHasDefault" />
+        <exclude name="ForLoopCanBeForeach" />
+        <exclude name="ForLoopVariableCount" />
+        <exclude name="JUnit5TestShouldBePackagePrivate" />
+        <exclude name="LiteralsFirstInComparisons" />
+        <exclude name="MethodReturnsInternalArray" />
+        <exclude name="MissingOverride" />
+        <exclude name="NonExhaustiveSwitch" />
+        <exclude name="PreserveStackTrace" />
+        <exclude name="PrimitiveWrapperInstantiation" />
+        <exclude name="ReplaceHashtableWithMap" />
+        <exclude name="SystemPrintln" />
+        <exclude name="UnitTestContainsTooManyAsserts" />
+        <exclude name="UnitTestShouldIncludeAssert" />
+        <exclude name="UnitTestShouldUseTestAnnotation" />
+        <exclude name="UnusedAssignment" />
+        <exclude name="UnusedFormalParameter" />
+        <exclude name="UnusedLocalVariable" />
+        <exclude name="UnusedPrivateField" />
+        <exclude name="UnusedPrivateMethod" />
+        <exclude name="UseCollectionIsEmpty" />
+        <exclude name="UseEnumCollections" />
+        <exclude name="UseStandardCharsets" />
+        <exclude name="UseTryWithResources" />
+        <exclude name="UseVarargs" />
+    </rule>
+
+    <rule
+        ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor" />
+        <exclude name="BooleanGetMethodName" />
+        <exclude name="EmptyControlStatement" />
+        <exclude name="EmptyMethodInAbstractClassShouldBeAbstract" />
+        <exclude name="FieldDeclarationsShouldBeAtStartOfClass" />
+        <exclude name="GenericsNaming" />
+        <exclude name="LocalVariableCouldBeFinal" />
+        <exclude name="NoPackage" />
+        <exclude name="PackageCase" />
+        <exclude name="UnnecessaryFullyQualifiedName" />
+        <exclude name="UnnecessaryImport" />
+        <exclude name="UseUnderscoresInNumericLiterals" />
+    </rule>
+
+    <rule
+        ref="category/java/design.xml">
+        <exclude name="AvoidDeeplyNestedIfStmts" />
+        <exclude name="AvoidThrowingNullPointerException" />
+        <exclude name="AvoidThrowingRawExceptionTypes" />
+        <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal" />
+        <exclude name="CognitiveComplexity" />
+        <exclude name="CyclomaticComplexity" />
+        <exclude name="ExcessivePublicCount" />
+    </rule>
+
+</ruleset>
