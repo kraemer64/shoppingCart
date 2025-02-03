@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.request.AddProductRequest;
+import com.springprojects.shoppingcart.request.UpdateProductRequest;
 
 public interface IProductService {
 
 	Product addProduct(AddProductRequest product);
 	Product getProductById(Long id);
 	void deleteProductById(Long id);
-	void updateProduct(Product product, Long productId);
+	Product updateProduct(UpdateProductRequest product, Long productId);
 	List<Product> getAllProducts();
 	List<Product> getProductsByCategory(String category);
 	List<Product> getProductsByBrand(String brand);
