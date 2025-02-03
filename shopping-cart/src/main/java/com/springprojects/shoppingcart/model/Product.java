@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +40,8 @@ public class Product {
 	 * @param description contains description.
 	 * @param category contains category.
 	 */
-	public Product(String name, String brand, BigDecimal price, int inventory, 
-			String description, Category category) {
+	public Product(final String name, final String brand, final BigDecimal price, 
+			final int inventory, final String description, final Category category) {
 		super();
 		this.name = name;
 		this.brand = brand;
