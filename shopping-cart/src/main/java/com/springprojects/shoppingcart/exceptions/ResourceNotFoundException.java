@@ -3,7 +3,7 @@ package com.springprojects.shoppingcart.exceptions;
 public class ResourceNotFoundException extends RuntimeException{
 
 	/**
-	 * Serial Version (sv) id.
+	 * Version id.
 	 */
 	private static final long serialVersionUID = 1L;
 

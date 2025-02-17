@@ -3,7 +3,7 @@ package com.springprojects.shoppingcart.exceptions;
 public class ProductNotFoundException extends RuntimeException {
 
 	/**
-	 * Serial id.
+	 * Version id.
 	 */
 	private static final long serialVersionUID = 1L;
 
