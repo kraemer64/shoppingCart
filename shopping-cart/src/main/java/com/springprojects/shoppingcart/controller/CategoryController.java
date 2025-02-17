@@ -19,9 +19,9 @@ import com.springprojects.shoppingcart.exceptions.AlreadyExistsException;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Category;
 import com.springprojects.shoppingcart.response.ApiResponse;
+import com.springprojects.shoppingcart.service.category.ICategoryService;
 
 import lombok.RequiredArgsConstructor;
-import service.category.ICategoryService;
 
 @RestController
 @RequestMapping("${api.prefix}/categories")
