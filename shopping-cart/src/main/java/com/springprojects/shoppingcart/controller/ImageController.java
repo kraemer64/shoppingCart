@@ -25,9 +25,9 @@ import com.springprojects.shoppingcart.dto.ImageDto;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Image;
 import com.springprojects.shoppingcart.response.ApiResponse;
+import com.springprojects.shoppingcart.service.image.IImageService;
 
 import lombok.RequiredArgsConstructor;
-import service.image.IImageService;
 
 @RestController
 @RequestMapping("${api.prefix}/images")

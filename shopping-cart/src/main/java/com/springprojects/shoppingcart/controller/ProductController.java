@@ -19,9 +19,9 @@ import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.request.AddProductRequest;
 import com.springprojects.shoppingcart.request.UpdateProductRequest;
 import com.springprojects.shoppingcart.response.ApiResponse;
+import com.springprojects.shoppingcart.service.product.IProductService;
 
 import lombok.RequiredArgsConstructor;
-import service.product.IProductService;
 
 @RestController
 @RequestMapping("${api.prefix}/products")
