@@ -1,4 +1,4 @@
-package service.category;
+package com.springprojects.shoppingcart.service.category;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +9,10 @@ import com.springprojects.shoppingcart.exceptions.AlreadyExistsException;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Category;
 import com.springprojects.shoppingcart.repository.CategoryRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor  
 public class CategoryService implements ICategoryService {
 	
 	private final CategoryRepository categoryRepository;

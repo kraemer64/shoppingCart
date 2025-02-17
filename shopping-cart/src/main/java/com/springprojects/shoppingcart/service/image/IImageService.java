@@ -1,4 +1,4 @@
-package service.image;
+package com.springprojects.shoppingcart.service.image;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package service.image;
+package com.springprojects.shoppingcart.service.image;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +15,9 @@ import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Image;
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.repository.ImageRepository;
+import com.springprojects.shoppingcart.service.product.IProductService;
+
 import lombok.RequiredArgsConstructor;
-import service.product.IProductService;
 
 @Service
 @RequiredArgsConstructor

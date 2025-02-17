@@ -1,4 +1,4 @@
-package service.category;
+package com.springprojects.shoppingcart.service.category;
 
 import java.util.List;
 

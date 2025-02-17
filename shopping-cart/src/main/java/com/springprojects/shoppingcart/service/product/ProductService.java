@@ -1,4 +1,4 @@
-package service.product;
+package com.springprojects.shoppingcart.service.product;
 
 import java.util.List;
 import java.util.Optional;
