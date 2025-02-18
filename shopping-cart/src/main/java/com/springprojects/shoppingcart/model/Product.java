@@ -29,6 +29,23 @@ public class Product {
 	private BigDecimal price;
 	private int inventory;
 	private String description;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	/* mappedBy = "product" = Die Beziehung zwischen Product und Image wird 
+	 * 						  über Image.product verwaltet.
+	 * cascade = CascadeType.ALL = Alle Änderungen an Produkt, werden an den
+	 * 							   Produkten in images der Image Liste übertragen.
+	 * orphanRemoval = true = Wenn ein Bild aus der Liste entfernt wird, so wird
+	 * 						  auch das entsprechende Bild aus der DB gelöscht. Und
+	 * 						  wenn ein Produkt gelöscht wird, so werden alle 
+	 * 						  dazugehörigen Bilder gelöscht.
+	 * */
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,
+			orphanRemoval = true)
+	private List<Image> images;
 	
 	
 	/**
@@ -50,22 +67,4 @@ public class Product {
 		this.description = description;
 		this.category = category;
 	}
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	/* mappedBy = "product" = Die Beziehung zwischen Product und Image wird 
-	 * 						  über Image.product verwaltet.
-	 * cascade = CascadeType.ALL = Alle Änderungen an Produkt, werden an den
-	 * 							   Produkten in images der Image Liste übertragen.
-	 * orphanRemoval = true = Wenn ein Bild aus der Liste entfernt wird, so wird
-	 * 						  auch das entsprechende Bild aus der DB gelöscht. Und
-	 * 						  wenn ein Produkt gelöscht wird, so werden alle 
-	 * 						  dazugehörigen Bilder gelöscht.
-	 * */
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	private List<Image> images;
-	
 }
