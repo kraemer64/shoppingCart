@@ -24,15 +24,15 @@ public class Category {
 	private Long id;
 	private String name;
 	
+	@OneToMany(mappedBy = "category")
+	private List<Product> products;
 	
 	/**
 	 * Constructor to support init by name.
 	 * @param name contains given name.
 	 */
-	public Category(final String name) {
+	public Category(String name) {
 		this.name = name;
 	}
 	
-	@OneToMany(mappedBy = "category")
-	private List<Product> products;
 }
