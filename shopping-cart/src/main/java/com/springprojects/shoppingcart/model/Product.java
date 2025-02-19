@@ -3,6 +3,8 @@ package com.springprojects.shoppingcart.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class Product {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
+	@JsonIgnoreProperties("products")
 	private Category category;
 	
 	/* mappedBy = "product" = Die Beziehung zwischen Product und Image wird 
