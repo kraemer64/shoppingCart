@@ -28,8 +28,8 @@ public class ProductService implements IProductService{
 		Category category = Optional.ofNullable(categoryRepository
 				.findByName(request.getCategory().getName()))
 				.orElseGet(() -> {
-					Category newcategory = new Category(request.getCategory().getName());
-					return categoryRepository.save(newcategory);
+					Category newCategory = new Category(request.getCategory().getName());
+					return categoryRepository.save(newCategory);
 				});
 		
 		request.setCategory(category);
