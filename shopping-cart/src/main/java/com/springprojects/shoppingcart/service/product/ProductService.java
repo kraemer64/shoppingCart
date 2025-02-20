@@ -3,6 +3,7 @@ package com.springprojects.shoppingcart.service.product;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
@@ -21,6 +22,7 @@ public class ProductService implements IProductService{
 	
 	private final ProductRepository productRepository;                                                                                                    
 	private final CategoryRepository categoryRepository;
+	private final ModelMapper modelMapper;
 
 	
 	@Override
