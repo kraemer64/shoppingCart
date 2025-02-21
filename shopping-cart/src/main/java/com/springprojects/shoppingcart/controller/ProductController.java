@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springprojects.shoppingcart.dto.ProductDto;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.request.AddProductRequest;
@@ -33,14 +34,16 @@ public class ProductController {
 	@GetMapping("/all")
 	public ResponseEntity<ApiResponse> getAllProducts() {
 		List<Product> products = productService.getAllProducts(); 
-		return ResponseEntity.ok(new ApiResponse("Success", products));
+		List<ProductDto> productDtos = productService.getConvertedProducts(products);
+		return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 	}
 	
 	@GetMapping("/getById/{productId}")
 	public ResponseEntity<ApiResponse> getProductById(@PathVariable final Long productId) {
 		try {
 			final Product product = productService.getProductById(productId);
-			return ResponseEntity.ok(new ApiResponse("Success", product));
+			ProductDto productDto = productService.convertToDto(product);
+			return ResponseEntity.ok(new ApiResponse("Success", productDto));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
 					.body(new ApiResponse(e.getMessage(), null));
@@ -94,7 +97,8 @@ public class ProductController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 						new ApiResponse("No Products found!", null));
 			}
-			return ResponseEntity.ok(new ApiResponse("Success", products));
+			List<ProductDto> productDtos = productService.getConvertedProducts(products);
+			return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					new ApiResponse(e.getMessage(), null));
@@ -111,7 +115,8 @@ public class ProductController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 						new ApiResponse("No Products found!", null));
 			}
-			return ResponseEntity.ok(new ApiResponse("Success", products));
+			List<ProductDto> productDtos = productService.getConvertedProducts(products);
+			return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					new ApiResponse(e.getMessage(), null));
@@ -126,7 +131,8 @@ public class ProductController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 						new ApiResponse("No Products found!", null));
 			}
-			return ResponseEntity.ok(new ApiResponse("Success", products));
+			List<ProductDto> productDtos = productService.getConvertedProducts(products);
+			return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					new ApiResponse(e.getMessage(), null));
@@ -141,7 +147,8 @@ public class ProductController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 						new ApiResponse("No Products found!", null));
 			}
-			return ResponseEntity.ok(new ApiResponse("Success", products));
+			List<ProductDto> productDtos = productService.getConvertedProducts(products);
+			return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					new ApiResponse(e.getMessage(), null));
@@ -156,7 +163,8 @@ public class ProductController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 						new ApiResponse("No Products found!", null));
 			}
-			return ResponseEntity.ok(new ApiResponse("Success", products));
+			List<ProductDto> productDtos = productService.getConvertedProducts(products);
+			return ResponseEntity.ok(new ApiResponse("Success", productDtos));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					new ApiResponse(e.getMessage(), null));

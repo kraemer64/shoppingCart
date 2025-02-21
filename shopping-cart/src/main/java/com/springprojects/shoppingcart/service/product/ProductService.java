@@ -6,10 +6,14 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.springprojects.shoppingcart.dto.ImageDto;
+import com.springprojects.shoppingcart.dto.ProductDto;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Category;
+import com.springprojects.shoppingcart.model.Image;
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.repository.CategoryRepository;
+import com.springprojects.shoppingcart.repository.ImageRepository;
 import com.springprojects.shoppingcart.repository.ProductRepository;
 import com.springprojects.shoppingcart.request.AddProductRequest;
 import com.springprojects.shoppingcart.request.UpdateProductRequest;
@@ -22,6 +26,7 @@ public class ProductService implements IProductService{
 	
 	private final ProductRepository productRepository;                                                                                                    
 	private final CategoryRepository categoryRepository;
+	private final ImageRepository imagerepository;
 	private final ModelMapper modelMapper;
 
 	
@@ -133,5 +138,21 @@ public class ProductService implements IProductService{
 			final String name) {
 		return productRepository.countByBrandAndName(brand, name);
 	}
+	
+	@Override
+	public List<ProductDto> getConvertedProducts(final List<Product> products){
+		// return products.stream().map(this::convertToDto).toList();
+		return products.stream().map(product -> convertToDto(product)).toList();
+	}
 
+	@Override
+	public ProductDto convertToDto(final Product product) {
+		ProductDto productDto = modelMapper.map(product, ProductDto.class);
+		List<Image> images = imagerepository.getImageByProductId(product.getId());
+		List<ImageDto> imageDtos = images.stream()
+				.map(image -> modelMapper.map(image, ImageDto.class)).toList();
+		productDto.setImages(imageDtos);
+		return productDto;
+	}
+	
 }

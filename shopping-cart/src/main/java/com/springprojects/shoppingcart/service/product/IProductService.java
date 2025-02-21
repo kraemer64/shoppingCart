@@ -2,6 +2,7 @@ package com.springprojects.shoppingcart.service.product;
 
 import java.util.List;
 
+import com.springprojects.shoppingcart.dto.ProductDto;
 import com.springprojects.shoppingcart.model.Product;
 import com.springprojects.shoppingcart.request.AddProductRequest;
 import com.springprojects.shoppingcart.request.UpdateProductRequest;
@@ -19,4 +20,6 @@ public interface IProductService {
 	List<Product> getProductsByName(String name);
 	List<Product> getProductsByBrandAndName(String brand, String name);
 	Long countProductsByBrandAndName(String brand, String name);
+	ProductDto convertToDto(Product product);
+	List<ProductDto> getConvertedProducts(List<Product> products);
 }
