@@ -1,7 +1,10 @@
 package com.springprojects.shoppingcart.service.cart;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
+import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.model.Cart;
 import com.springprojects.shoppingcart.model.CartItem;
 import com.springprojects.shoppingcart.model.Product;
@@ -46,13 +49,38 @@ public class CartItemService implements ICartItemService {
 
 	@Override
 	public void removeItemFromCart(final Long cartId, final Long productId) {
-
+		Cart cart = cartService.getCart(cartId);
+		CartItem itemToRemove = getCartItem(cartId, productId);
+		
+		cart.removeItem(itemToRemove);
+		cartRepository.save(cart);
 	}
 
 	@Override
 	public void updateItemQuantity(final Long cartId, final Long productId, 
 			final int quantity) {
-
+		Cart cart = cartService.getCart(cartId);
+		cart.getCartItems().stream()
+			.filter(item -> item.getProduct().getId().equals(productId))
+			.findFirst().ifPresent(item -> {
+				item.setQuantity(quantity);
+				item.setUnitPrice(item.getProduct().getPrice());
+				item.setTotalPrice();
+			});
+		
+		BigDecimal totalAmount = cart.getTotalAmount();
+		cart.setTotalAmount(totalAmount);
+		
+		cartRepository.save(cart);
 	}
 
+	@Override
+	public CartItem getCartItem(final Long cartId, final Long productId) {
+		Cart cart = cartService.getCart(cartId);
+		
+		return cart.getCartItems().stream()
+				.filter(item -> item.getProduct().getId().equals(productId))
+				.findFirst().orElseThrow(
+						() -> new ResourceNotFoundException("Item not found"));
+	}
 }
