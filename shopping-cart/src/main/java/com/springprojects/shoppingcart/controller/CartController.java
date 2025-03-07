@@ -1,7 +1,10 @@
 package com.springprojects.shoppingcart.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,28 @@ public class CartController {
 			Cart cart = cartService.getCart(cartId);
 			return ResponseEntity.ok(new ApiResponse("Success", null));
 		} catch(ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiResponse(e.getMessage(), null));
+		}
+	}
+	
+	@DeleteMapping("/clearCart/{cartId}")
+	public ResponseEntity<ApiResponse> clearCart(@PathVariable final Long cartId){
+		try {
+			cartService.clearCart(cartId);
+			return ResponseEntity.ok(new ApiResponse("Clear cart success", null));
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiResponse(e.getMessage(), null));
+		}
+	}
+	
+	@GetMapping("/getTotalPrice/{cartId}")
+	public ResponseEntity<ApiResponse> getTotalPrice(@PathVariable final Long cartId) {
+		try {
+			BigDecimal totalPrice = cartService.getTotalPrice(cartId);
+			return ResponseEntity.ok(new ApiResponse("Cart total price: ", totalPrice));
+		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
 					.body(new ApiResponse(e.getMessage(), null));
 		}
