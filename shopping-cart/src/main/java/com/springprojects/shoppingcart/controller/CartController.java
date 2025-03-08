@@ -29,7 +29,7 @@ public class CartController {
 	public ResponseEntity<ApiResponse> getCart(@PathVariable final Long cartId) {
 		try {
 			Cart cart = cartService.getCart(cartId);
-			return ResponseEntity.ok(new ApiResponse("Success", null));
+			return ResponseEntity.ok(new ApiResponse("Success", cart));
 		} catch(ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
 					.body(new ApiResponse(e.getMessage(), null));
