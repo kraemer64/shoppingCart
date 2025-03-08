@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springprojects.shoppingcart.exceptions.ResourceNotFoundException;
 import com.springprojects.shoppingcart.response.ApiResponse;
 import com.springprojects.shoppingcart.service.cart.ICartItemService;
+import com.springprojects.shoppingcart.service.cart.ICartService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,12 +23,17 @@ import lombok.RequiredArgsConstructor;
 public class CartItemController {
 
 	private final ICartItemService cartItemService;
+	private final ICartService cartService;
 	
 	@PostMapping("/addCartItem")
 	public ResponseEntity<ApiResponse> addItemToCart(@RequestParam final Long cartId,
 			@RequestParam final Long productId, @RequestParam final int quantity){
 		try {
-			cartItemService.addItemToCart(cartId, productId, quantity);
+			if (cartId == null) {
+				cartItemService.addItemToCart(cartService.initNewCart(), productId, quantity);
+			} else {
+				cartItemService.addItemToCart(cartId, productId, quantity);
+			}
 			return ResponseEntity.ok(new ApiResponse("Item added to cart", null));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)

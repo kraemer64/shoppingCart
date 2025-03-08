@@ -1,6 +1,7 @@
 package com.springprojects.shoppingcart.service.cart;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class CartService implements ICartService {
 	
 	private final CartRepository cartRepository;
 	private final CartItemRepository cartItemRepository;
+	private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
 	@Override
 	public Cart getCart(final Long cartId) {
@@ -40,4 +42,12 @@ public class CartService implements ICartService {
 		return cart.getTotalAmount();
 	}
 
+	@Override
+	public Long initNewCart() {
+		Cart newCart = new Cart();
+		Long newCartId = cartIdGenerator.incrementAndGet();
+		
+		newCart.setCartId(newCartId);
+		return cartRepository.save(newCart).getCartId();
+	}
 }
