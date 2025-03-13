@@ -41,7 +41,7 @@ public class CartItemController {
 		}
 	}
 	
-	@PutMapping("/updateQuantity/cart/{cartId/item/{itemId}}")
+	@PutMapping("/updateQuantity/cart/{cartId}/item/{itemId}")
 	public ResponseEntity<ApiResponse> updateItemQuantity(@PathVariable final Long cartId, 
 			@PathVariable final Long itemId, @RequestParam final int quantity){
 		try {
