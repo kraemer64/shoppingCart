@@ -23,7 +23,7 @@ public class CartItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long cartItemId;
+	private Long id;
 	private int quantity;
 	private BigDecimal unitPrice;
 	private BigDecimal totalPrice;
