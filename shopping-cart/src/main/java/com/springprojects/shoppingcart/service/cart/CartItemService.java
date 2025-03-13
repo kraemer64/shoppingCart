@@ -32,7 +32,7 @@ public class CartItemService implements ICartItemService {
 				.filter(item -> item.getProduct().getId().equals(productId))
 				.findFirst().orElse(new CartItem());
 		
-		if (cartItem.getCartItemId() == null) {
+		if (cartItem.getId() == null) {
 			cartItem.setCart(cart);
 			cartItem.setProduct(product);
 			cartItem.setQuantity(quantity);

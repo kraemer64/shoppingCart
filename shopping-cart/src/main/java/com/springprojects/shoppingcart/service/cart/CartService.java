@@ -47,7 +47,7 @@ public class CartService implements ICartService {
 		Cart newCart = new Cart();
 		Long newCartId = cartIdGenerator.incrementAndGet();
 		
-		newCart.setCartId(newCartId);
-		return cartRepository.save(newCart).getCartId();
+		newCart.setId(newCartId);
+		return cartRepository.save(newCart).getId();
 	}
 }
