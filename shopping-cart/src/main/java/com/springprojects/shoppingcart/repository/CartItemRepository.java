@@ -6,6 +6,6 @@ import com.springprojects.shoppingcart.model.CartItem;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
-	void deleteAllByCartId(Long cartId);
+	void deleteAllByCartId(final Long cartId);
 
 }
